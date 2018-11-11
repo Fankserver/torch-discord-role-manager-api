@@ -39,8 +39,8 @@ func newStorage() (*storage, error) {
 
 func (s *storage) Add(steamID int64, discordTag string) {
 	s.storeLock.Lock()
-	defer s.storeLock.Unlock()
 	s.store[steamID] = discordTag
+	s.storeLock.Unlock()
 
 	go func() {
 		s.saveLock.Lock()

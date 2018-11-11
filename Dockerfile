@@ -1,4 +1,4 @@
-FROM golang:1.11.1-alpine as builder
+FROM golang:1.11-alpine as builder
 WORKDIR /go/src/github.com/fankserver/torch-discord-role-manager-api
 COPY . .
 RUN apk add --no-cache alpine-sdk \
@@ -6,8 +6,6 @@ RUN apk add --no-cache alpine-sdk \
     && go build -o app .
 
 FROM alpine:latest
-RUN adduser -D -u 1000 rolemanger
-USER rolemanger
 
 # Add app
 COPY --from=builder /go/src/github.com/fankserver/torch-discord-role-manager-api/app /app
